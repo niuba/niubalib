@@ -390,7 +390,10 @@ interface WxEnhances {
     itemColor: string;
   }): Promise<void>;
 
-  showLoading(params: { title: string }): Promise<void>;
+  showLoading(params: {
+    title: string;
+    mask: boolean;
+  }): Promise<void>;
 
   showModal(params: {
     title: string;
@@ -460,16 +463,17 @@ declare class component {
   data: { [name: string]: any };
 
   computed?: { [name: string]: (self?: component) => any };
-  methods?: { [name: string]: (evt?: WXevent) => any };
+  methods?: { [name: string]: (...arg: any[]) => any };
 
   $init($wxpage: any, $root: any, $parent: any): void;
   $initMixins(): void;
-  onLoad(): void;
+  onLoad(options: any): void;
   setData(k: string | string[], v: any): void;
   getWxPage(): any;
   $setIndex(index: number): void;
   $getComponent(com: any): any;
-  $apply(fn: () => void): void;
+  $apply(fn?: () => void): void;
+  $emit(key: string, value: any);
   $nextTick(fn: () => void): void;
 }
 interface UrlParam {
@@ -525,6 +529,22 @@ declare interface Wepy extends WxEnhances {
   setStorageSync(key: string, data: any): void;
   getStorageSync(key: string): any;
   clearStorageSync(): void;
+  uploadFile(options: {
+    url: string;
+    filePath: string;
+    name: "file"; // 必须填file
+    formData: any;
+  }): Promise<any>;
+  chooseImage(options: {
+    count: number,
+    sizeType: ("original" | "compressed")[], // 可以指定是原图还是压缩图，默认二者都有
+    sourceType: ("album" | "camera")[], // 可以指定来源是相册还是相机，默认二者都有
+  }): Promise<any>;
+  previewImage(options: {
+    current: string,
+    urls: string[]
+  }): Promise<any>;
+  showShareMenu();
 }
 declare const wepy: Wepy;
 
