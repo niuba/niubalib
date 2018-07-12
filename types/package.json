@@ -1,9 +1,11 @@
 {
   "name": "@niubalib/types",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "types",
   "main": "",
-  "scripts": {},
+  "scripts": {
+    "pub": "npm publish --scope --access publish"
+  },
   "author": "niuba <niuba.zbz@gmail.com>",
   "license": "MIT",
   "devDependencies": {
