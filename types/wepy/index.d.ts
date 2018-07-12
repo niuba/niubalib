@@ -529,6 +529,11 @@ declare interface Wepy extends WxEnhances {
   setStorageSync(key: string, data: any): void;
   getStorageSync(key: string): any;
   clearStorageSync(): void;
+  downloadFile(options: {
+    url: string;
+  }): Promise<{
+    tempFilePath: string
+  }>;
   uploadFile(options: {
     url: string;
     filePath: string;
