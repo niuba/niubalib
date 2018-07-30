@@ -473,8 +473,9 @@ declare class component {
   $setIndex(index: number): void;
   $getComponent(com: any): any;
   $apply(fn?: () => void): void;
-  $emit(key: string, value: any);
+  $emit(key: string, ...someArgs: any[]);
   $nextTick(fn: () => void): void;
+  $invoke(componentName: string, methodName: string, ...someArgs: any[]);
 }
 interface UrlParam {
   url: string;
@@ -550,6 +551,22 @@ declare interface Wepy extends WxEnhances {
     urls: string[]
   }): Promise<any>;
   showShareMenu();
+  getSystemInfoSync(): {
+    brand: string;//	手机品牌	1.5.0
+    model: string;//	手机型号
+    pixelRatio: number;//	设备像素比
+    screenWidth: number;//	屏幕宽度	1.1.0
+    screenHeight: number;//	屏幕高度	1.1.0
+    windowWidth: number;//	可使用窗口宽度
+    windowHeight: number;//	可使用窗口高度
+    statusBarHeight: number;//	状态栏的高度	1.9.0
+    language: string;//	微信设置的语言
+    version: string;//	微信版本号
+    system: string;//	操作系统版本
+    platform: string;//	客户端平台
+    fontSizeSetting: number;//	用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位：px	1.5.0
+    SDKVersion: string;//	客户端基础库版本
+  }
 }
 declare const wepy: Wepy;
 
