@@ -1,10 +1,10 @@
 {
   "name": "@niubalib/types",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "types",
   "main": "",
   "scripts": {
-    "pub": "npm publish --scope --access publish"
+    "pub": "npm publish --scope --access public"
   },
   "author": "niuba <niuba.zbz@gmail.com>",
   "license": "MIT",
