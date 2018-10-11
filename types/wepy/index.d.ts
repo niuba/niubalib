@@ -180,15 +180,15 @@ interface WxEnhances {
 
   canvasToTempFilePath(
     params: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-      destWidth: number;
-      destHeight: number;
+      x?: number;
+      y?: number;
+      width?: number;
+      height?: number;
+      destWidth?: number;
+      destHeight?: number;
       canvasId: string;
     },
-    context: any
+    context?: any
   ): Promise<{ tempFilePath: string }>;
 
   checkIsSoterEnrolledInDevice(params: {
@@ -316,7 +316,7 @@ interface WxEnhances {
     SDKVersion: string;
   }>;
 
-  getUserInfo(params: {
+  getUserInfo(params?: {
     withCredentials: boolean;
     lang: string;
     timeout: number;
@@ -352,7 +352,7 @@ interface WxEnhances {
   }): Promise<void>;
 
   redirectTo(params: UrlParam): Promise<void>;
-
+  reLaunch(params: UrlParam): Promise<void>;
   removeSavedFile(params: FilePathParam): Promise<void>;
 
   removeStorage(params: { key: string }): Promise<void>;
@@ -545,7 +545,14 @@ declare interface Wepy extends WxEnhances {
     count: number,
     sizeType: ("original" | "compressed")[], // 可以指定是原图还是压缩图，默认二者都有
     sourceType: ("album" | "camera")[], // 可以指定来源是相册还是相机，默认二者都有
-  }): Promise<any>;
+  }): Promise<{
+    errMsg: string;
+    tempFilePaths: string[];
+    tempFiles: {
+      path: string;
+      size: number;
+    }[];
+  }>;
   previewImage(options: {
     current: string,
     urls: string[]
@@ -566,7 +573,19 @@ declare interface Wepy extends WxEnhances {
     platform: string;//	客户端平台
     fontSizeSetting: number;//	用户字体大小设置。以“我-设置-通用-字体大小”中的设置为准，单位：px	1.5.0
     SDKVersion: string;//	客户端基础库版本
-  }
+  };
+  saveImageToPhotosAlbum({
+    filePath: string
+  }): Promise<any>;
+  getImageInfo(options: {
+    src: string
+  }): Promise<{
+    width: number;//图片宽度，单位px
+    height: number;//	图片高度，单位px
+    path: string;//	返回图片的本地路径
+    orientation: string;//	返回图片的方向，有效值见下表	1.9.90
+    type: string;//	返回图片的格式
+  }>;
 }
 declare const wepy: Wepy;
 
